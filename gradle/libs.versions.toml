@@ -1,0 +1,23 @@
+[versions]
+kotlin = "1.9.10"
+paperweight = "1.5.11"
+plugin-yml = "0.6.0"
+run-task = "2.2.2"
+shadow = "8.1.1"
+
+paper = "1.20.4-R0.1-SNAPSHOT"
+
+[libraries]
+paper-devbundle = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paper" }
+
+paperweight = { group = "io.papermc.paperweight", name = "paperweight-userdev", version.ref = "paperweight" }
+plugin-yml = { group = "net.minecrell.plugin-yml.paper", name = "net.minecrell.plugin-yml.paper.gradle.plugin", version.ref = "plugin-yml" }
+run-paper = { group = "xyz.jpenilla.run-paper", name = "xyz.jpenilla.run-paper.gradle.plugin", version.ref = "run-task" }
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+paperweight = { id = "io.papermc.paperweight.userdev", version.ref = "paperweight" }
+plugin-yml = { id = "net.minecrell.plugin-yml.paper", version.ref = "plugin-yml" }
+run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-task" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
