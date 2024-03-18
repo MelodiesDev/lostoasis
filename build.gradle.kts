@@ -31,8 +31,8 @@ dependencies {
 }
 
 configure<PaperPluginDescription> {
-    name = "template"
-    main = "dev.melodies.template.TemplatePlugin"
+    name = "lostplugins"
+    main = "dev.melodies.lostplugins.LostPlugins"
 
     authors = listOf("Melody <3")
     apiVersion = "1.20"

@@ -1,4 +1,4 @@
-rootProject.name = "plugin-template"
+rootProject.name = "lost-plugins"
 
 pluginManagement {
     repositories {
