@@ -24,10 +24,14 @@ repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public")
     maven("https://jitpack.io")
+    maven("https://repo.xenondevs.xyz/releases")
 }
 
 dependencies {
     "paperweightDevelopmentBundle"(libs.paper.devbundle)
+
+    api("xyz.xenondevs.invui:invui:1.25")
+    api("xyz.xenondevs.invui:invui-kotlin:1.25")
 }
 
 configure<PaperPluginDescription> {

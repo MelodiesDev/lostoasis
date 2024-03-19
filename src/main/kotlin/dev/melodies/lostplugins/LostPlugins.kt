@@ -1,5 +1,6 @@
 package dev.melodies.lostplugins
 
+import dev.melodies.losthub.PlayerDoubleJump
 import dev.melodies.lostitems.OpenPickaxeMenuListener
 import dev.melodies.lostitems.PickaxeBreakEvents
 import dev.melodies.lostitems.PickaxeEnchantListener
@@ -19,5 +20,6 @@ class LostPlugins : JavaPlugin(){
         Bukkit.getPluginManager().registerEvents(PickaxeEnchantListener(), this)
         Bukkit.getPluginManager().registerEvents(PlayerGrantListener(), this)
         Bukkit.getPluginManager().registerEvents(OpenNavigatorListener(), this)
+        Bukkit.getPluginManager().registerEvents(PlayerDoubleJump(this), this)
     }
 }
