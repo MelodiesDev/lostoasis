@@ -1,6 +1,5 @@
 package dev.melodies.lostitems
 
-import dev.melodies.lostitems.PickaxeGrantListener.Companion.PICKAXE
 import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.text.Component
 import org.bukkit.event.EventHandler
@@ -24,7 +23,7 @@ class PickaxeBreakEvents : Listener {
     fun onBlockBreak(event: BlockBreakEvent) {
         // We only want to update the boss bar if the player broke the block
         // using the pickaxe.
-        if (!event.player.inventory.itemInMainHand.isSimilar(PICKAXE)) return
+        if (!event.player.persistentDataContainer.has(PickaxeGrantListener.KEY)) return
 
         // Get the boss bar entry for the player, or create a new one if it doesn't exist.
         // This will provide the initial styling, etc.
