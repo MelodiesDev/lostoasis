@@ -33,29 +33,43 @@ class PlayerDoubleJump(private val plugin: JavaPlugin) : Listener {
         if (!event.isSneaking) return
 
         val player = event.player
-        val onBlock = player.location.block.getRelative(BlockFace.DOWN).isSolid
-        if (!onBlock) return
+        val blockBelow = player.location.block.getRelative(BlockFace.DOWN)
+        if (!blockBelow.isSolid) return
 
         var chargeTime = 1
+        val chargeDelay = 10L
+
         Bukkit.getScheduler().runTaskTimer(plugin, { task ->
             // This runs every tick
             if (player.isSneaking) {
                 // Increment
                 chargeTime++
+                if (chargeTime <= chargeDelay) return@runTaskTimer
 
                 // Play a cool ass funking sound.jpeg
                 val pitch = min(chargeTime * 0.1f, 2f)
-                player.playSound(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1f, pitch)
+                player.playSound(player, Sound.BLOCK_SCULK_CHARGE, 1f, pitch)
             } else {
                 // They stopped
                 task.cancel()
-                val maxPower = 20.0
+                if (chargeTime <= chargeDelay) return@runTaskTimer
 
-                val power = chargeTime.toDouble() * 0.2
+                val maxPower = 3.5
+                val power = min((chargeTime.toDouble() - chargeDelay) * 0.2, maxPower)
+
                 player.velocity = player.location.direction.multiply(min(power, maxPower))
 
-                player.playSound(player, Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1f, 1.5f)
-                player.spawnParticle(org.bukkit.Particle.CLOUD, player.location, 10, 0.5, 0.5, 0.5, 0.0)
+                player.playSound(player, Sound.ITEM_TRIDENT_RIPTIDE_1, 0.5f, 2f)
+                player.spawnParticle(org.bukkit.Particle.BLOCK_CRACK, player.location, 100, 1.0, 0.0, 1.0, 0.0, blockBelow.blockData)
+
+                Bukkit.getScheduler().runTaskTimer(plugin, { task2 ->
+                    if (player.location.block.getRelative(BlockFace.DOWN).isEmpty) {
+                        player.spawnParticle(org.bukkit.Particle.ELECTRIC_SPARK, player.location, 10, 0.25, 0.5, 0.25, 0.0)
+                        player.spawnParticle(org.bukkit.Particle.DRAGON_BREATH, player.location, 10, 0.0, 0.25, 0.0, 0.0)
+                    } else {
+                        task2.cancel()
+                    }
+                }, 5L, 1L)
             }
         }, 0L, 1L)
     }
