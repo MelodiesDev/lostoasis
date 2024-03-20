@@ -1,13 +1,13 @@
 package dev.melodies.lostmenu
 
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
-import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
-import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper
 import xyz.xenondevs.invui.gui.Gui
 import xyz.xenondevs.invui.item.builder.ItemBuilder
 import xyz.xenondevs.invui.item.impl.SimpleItem
@@ -17,15 +17,29 @@ class OpenNavigatorListener : Listener {
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         if (event.action != Action.RIGHT_CLICK_AIR && event.action != Action.RIGHT_CLICK_BLOCK) return
-        if (event.item?.type != Material.COMPASS || event.item?.itemMeta?.displayName() != MiniMessage.miniMessage().deserialize("<gradient:aqua:blue>Navigator</gradient>") ) return
+
+        val item = event.item ?: return
+        if (item.itemMeta?.persistentDataContainer?.has(CompassGrantListener.KEY) == false) return
+
         val gui = Gui.normal() // Creates the GuiBuilder for a normal GUI
             .setStructure(
-                "# # # # # # # # #",
-                "# . . . . . . . #",
-                "# . . . . . . . #",
-                "# # # # # # # # #"
+                ". # . . . . . . .",
             )
-            .addIngredient('#', SimpleItem(ItemBuilder(Material.BLACK_STAINED_GLASS_PANE)))
+            .addIngredient(
+                '#', SimpleItem(
+                    ItemBuilder(Material.LAPIS_BLOCK)
+                        .setDisplayName(
+                            "<gradient:blue:aqua>Far Shore</gradient>".toMiniMessage().wrapped()
+                        )
+                        .addLoreLines(
+                            "<gradient:dark_purple:light_purple>Click to enter to the Far Shore</gradient>".toMiniMessage().wrapped()
+                        )
+                ) {
+                    it.player.teleport(it.player.location.clone().add(it.player.location.direction.multiply(4)))
+                    it.player.playSound(it.player, "minecraft:block.end_portal.spawn", 1.0f, 1.0f)
+                    it.player.spawnParticle(org.bukkit.Particle.DRAGON_BREATH, it.player.location, 100, 1.0,0.0,1.0, 0.2)
+                }
+            )
             .build()
 
         val window = Window.single()
@@ -37,10 +51,8 @@ class OpenNavigatorListener : Listener {
         window.open()
 
     }
-    @EventHandler
-    fun onInventoryClick(event: InventoryClickEvent) {
-        if (event.currentItem?.type == Material.COMPASS && event.currentItem?.itemMeta?.displayName() == MiniMessage.miniMessage().deserialize("<gradient:aqua:blue>Navigator</gradient>")) {
-            event.isCancelled = true
-        }
-    }
+
+    private fun String.toMiniMessage() = MiniMessage.miniMessage().deserialize(this)
+
+    private fun Component.wrapped() = AdventureComponentWrapper(this)
 }

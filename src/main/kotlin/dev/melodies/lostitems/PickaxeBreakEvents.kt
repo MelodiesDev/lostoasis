@@ -23,21 +23,18 @@ class PickaxeBreakEvents : Listener {
     fun onBlockBreak(event: BlockBreakEvent) {
         // We only want to update the boss bar if the player broke the block
         // using the pickaxe.
-        if (!event.player.persistentDataContainer.has(PickaxeGrantListener.KEY)) return
+        if (!event.player.inventory.itemInMainHand.itemMeta.persistentDataContainer.has(PickaxeGrantListener.KEY)) return
 
         // Get the boss bar entry for the player, or create a new one if it doesn't exist.
         // This will provide the initial styling, etc.
         val bossBarEntry = bossBars.getOrPut(event.player.uniqueId) {
             // Create the boss bar
             val bossBar = BossBar.bossBar(
-                Component.text("Blocks Broken"),
+                createTitle(0),
                 0.0f,
                 BossBar.Color.BLUE,
                 BossBar.Overlay.PROGRESS
             )
-
-            // Show it to the player
-            event.player.showBossBar(bossBar)
 
             // Create a new Pair(bossBar, 0) and return it
             BossBarEntry(bossBar)
@@ -49,11 +46,17 @@ class PickaxeBreakEvents : Listener {
         // Calculate the new progress from 0 to 1.
         // Adventure is AWESOME and, when any attribute of the boss bar is updated,
         // it will automatically update the boss bar for all viewers.
+        bossBarEntry.bossBar.name(createTitle(newBlocksBroken))
         bossBarEntry.bossBar.progress(newBlocksBroken.toFloat() / requiredBlocks)
 
         // Update the map entry with the new number of blocks broken
         bossBars[event.player.uniqueId] = bossBarEntry.copy(blocksBroken = newBlocksBroken)
+
+        // Show it to the player
+        event.player.showBossBar(bossBarEntry.bossBar)
     }
 
-    private data class BossBarEntry(val bossBar: BossBar, val blocksBroken: Int = 0)
+    data class BossBarEntry(val bossBar: BossBar, val blocksBroken: Int = 0)
+
+    private fun createTitle(broken: Int) = Component.text("Pickaxe XP - Blocks broken: $broken / $requiredBlocks")
 }
