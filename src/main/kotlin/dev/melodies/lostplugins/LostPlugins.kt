@@ -3,8 +3,8 @@ package dev.melodies.lostplugins
 import dev.melodies.commands.OpenInfoBookCommand
 import dev.melodies.losthub.PlayerDoubleJump
 import dev.melodies.lostitems.OpenPickaxeMenuListener
-import dev.melodies.lostitems.PickaxeBreakEvents
-import dev.melodies.lostitems.PickaxeEnchantListener
+import dev.melodies.enchants.PickaxeBreakEvents
+import dev.melodies.enchants.PickaxeEnchantListener
 import dev.melodies.lostitems.PickaxeGrantListener
 import dev.melodies.lostmenu.CompassGrantListener
 import dev.melodies.lostmenu.OpenNavigatorListener

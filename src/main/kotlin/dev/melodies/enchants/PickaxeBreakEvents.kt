@@ -1,5 +1,6 @@
-package dev.melodies.lostitems
+package dev.melodies.enchants
 
+import dev.melodies.lostitems.PickaxeGrantListener
 import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.text.Component
 import org.bukkit.event.EventHandler

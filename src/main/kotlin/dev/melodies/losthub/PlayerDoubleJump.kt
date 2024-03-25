@@ -41,7 +41,7 @@ class PlayerDoubleJump(private val plugin: JavaPlugin) : Listener {
 
         Bukkit.getScheduler().runTaskTimer(plugin, { task ->
             // This runs every tick
-            if (player.isSneaking) {
+            if (player.isSneaking) { // If the player is holding shift
                 // Increment
                 chargeTime++
                 if (chargeTime <= chargeDelay) return@runTaskTimer

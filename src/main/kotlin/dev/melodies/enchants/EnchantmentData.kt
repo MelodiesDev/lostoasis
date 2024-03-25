@@ -1,4 +1,4 @@
-package dev.melodies.lostitems
+package dev.melodies.enchants
 
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -19,6 +19,14 @@ object CustomEnchantments {
         Material.TNT,
         "Explosive",
         "<light_purple>Cause a small explosion</light_purple> <green>0.04% increase per level</green>",
+        0.1,
+        NamespacedKey("lost-items", "explosive")
+    )
+
+    val METEOR = CustomEnchantment(
+        Material.MAGMA_BLOCK,
+        "Meteor Rain",
+        "<light_purple>Causes meteors to rain from the sky!</light_purple> <green>0.04% increase per level</green>",
         0.1,
         NamespacedKey("lost-items", "explosive")
     )

@@ -1,7 +1,7 @@
 package dev.melodies.lostmenu
 
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
+import dev.melodies.utils.toMiniMessage
+import dev.melodies.utils.wrapped
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper
 import xyz.xenondevs.invui.item.builder.ItemBuilder
 
 class CompassGrantListener : Listener {
@@ -46,9 +45,3 @@ class CompassGrantListener : Listener {
         }
     }
 }
-
-
-
-private fun String.toMiniMessage() = MiniMessage.miniMessage().deserialize(this)
-
-private fun Component.wrapped() = AdventureComponentWrapper(this)

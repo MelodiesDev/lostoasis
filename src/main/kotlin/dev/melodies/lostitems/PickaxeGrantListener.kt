@@ -1,7 +1,7 @@
 package dev.melodies.lostitems
 
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
+import dev.melodies.utils.toMiniMessage
+import dev.melodies.utils.wrapped
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
@@ -55,7 +55,3 @@ class PickaxeGrantListener : Listener {
         }
     }
 }
-
-private fun String.toMiniMessage() = MiniMessage.miniMessage().deserialize(this)
-
-private fun Component.wrapped() = AdventureComponentWrapper(this)

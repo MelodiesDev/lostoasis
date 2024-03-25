@@ -1,13 +1,12 @@
 package dev.melodies.lostmenu
 
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
+import dev.melodies.utils.toMiniMessage
+import dev.melodies.utils.wrapped
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
-import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper
 import xyz.xenondevs.invui.gui.Gui
 import xyz.xenondevs.invui.item.builder.ItemBuilder
 import xyz.xenondevs.invui.item.impl.SimpleItem
@@ -51,8 +50,4 @@ class OpenNavigatorListener : Listener {
         window.open()
 
     }
-
-    private fun String.toMiniMessage() = MiniMessage.miniMessage().deserialize(this)
-
-    private fun Component.wrapped() = AdventureComponentWrapper(this)
 }

@@ -1,5 +1,10 @@
 package dev.melodies.lostitems
 
+import dev.melodies.enchants.CustomEnchantment
+import dev.melodies.enchants.getCustomEnchantLevel
+import dev.melodies.enchants.setCustomEnchantLevel
+import dev.melodies.utils.toMiniMessage
+import dev.melodies.utils.wrapped
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Sound
@@ -53,7 +58,3 @@ class CustomEnchantMenuItem(
     }
 
 }
-
-private fun String.toMiniMessage() = MiniMessage.miniMessage().deserialize(this)
-
-private fun Component.wrapped() = AdventureComponentWrapper(this)
