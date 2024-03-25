@@ -1,4 +1,5 @@
 import dev.melodies.gradle.gitVersion
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 import net.minecrell.pluginyml.paper.PaperPluginDescription
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import xyz.jpenilla.runpaper.task.RunServer
@@ -34,12 +35,19 @@ dependencies {
     api("xyz.xenondevs.invui:invui-kotlin:1.25")
 }
 
-configure<PaperPluginDescription> {
+configure<BukkitPluginDescription> {
     name = "lostplugins"
     main = "dev.melodies.lostplugins.LostPlugins"
 
     authors = listOf("Melody <3")
     apiVersion = "1.20"
+
+    commands {
+        create("info") {
+            description = "Opens the info book"
+            permission = "lostplugins.info"
+        }
+    }
 }
 
 configure<KotlinJvmProjectExtension> {

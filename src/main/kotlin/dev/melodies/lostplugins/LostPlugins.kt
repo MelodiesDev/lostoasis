@@ -1,5 +1,6 @@
 package dev.melodies.lostplugins
 
+import dev.melodies.commands.OpenInfoBookCommand
 import dev.melodies.losthub.PlayerDoubleJump
 import dev.melodies.lostitems.OpenPickaxeMenuListener
 import dev.melodies.lostitems.PickaxeBreakEvents
@@ -21,5 +22,6 @@ class LostPlugins : JavaPlugin(){
         Bukkit.getPluginManager().registerEvents(CompassGrantListener(), this)
         Bukkit.getPluginManager().registerEvents(OpenNavigatorListener(), this)
         Bukkit.getPluginManager().registerEvents(PlayerDoubleJump(this), this)
+        this.getCommand("info")?.setExecutor(OpenInfoBookCommand())
     }
 }
