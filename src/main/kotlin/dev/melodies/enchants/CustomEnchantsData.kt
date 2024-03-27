@@ -5,36 +5,52 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object CustomEnchantments {
+object CustomEnchantsData {
 
-    val FORTUNE = CustomEnchantment(
+    val FORTUNE = CustomEnchantData(
         Material.EMERALD_BLOCK,
         "Fortune",
         "<light_purple>Chance for extra blocks to drop</light_purple> <green>0.04% increase per level</green>",
-        0.1,
+        EnchantProcChances.fortuneProcPerLevel,
         NamespacedKey("lost-items", "fortune")
     )
 
-    val EXPLOSIVE = CustomEnchantment(
+    val EXPLOSIVE = CustomEnchantData(
         Material.TNT,
         "Explosive",
         "<light_purple>Cause a small explosion</light_purple> <green>0.04% increase per level</green>",
-        0.1,
+        EnchantProcChances.explosiveProcPerLevel,
         NamespacedKey("lost-items", "explosive")
     )
 
-    val METEOR = CustomEnchantment(
+    val METEOR = CustomEnchantData(
         Material.MAGMA_BLOCK,
         "Meteor Rain",
         "<light_purple>Causes meteors to rain from the sky!</light_purple> <green>0.04% increase per level</green>",
-        0.1,
-        NamespacedKey("lost-items", "explosive")
+        EnchantProcChances.meteorProcPerLevel,
+        NamespacedKey("lost-items", "meteorrain")
     )
 
-    val values = listOf(FORTUNE, EXPLOSIVE)
+    val FLOW = CustomEnchantData(
+        Material.SCULK,
+        "Flow State",
+        "<light_purple>Causes the user to enter the flow state for a period of time.</light_purple> <green>0.04% increase per level</green>",
+        EnchantProcChances.flowProcPerLevel,
+        NamespacedKey("lost-items", "flow")
+    )
+
+    val LIGHTNING = CustomEnchantData(
+        Material.BEACON,
+        "Flow State",
+        "<light_purple>Causes lighting to strike around the user.</light_purple> <green>0.04% increase per level</green>",
+        EnchantProcChances.lightningProcPerLevel,
+        NamespacedKey("lost-items", "lightning")
+    )
+
+    val values = listOf(FORTUNE, EXPLOSIVE, METEOR, FLOW, LIGHTNING)
 }
 
-data class CustomEnchantment(
+data class CustomEnchantData(
     val material: Material,
     val name: String,
     val description: String,
@@ -48,7 +64,7 @@ data class CustomEnchantment(
  * @param enchantment The custom enchantment to get the level of.
  * @return The level of the enchantment, or null if the item does not have the enchantment.
  */
-fun ItemStack.getCustomEnchantLevel(enchantment: CustomEnchantment): Int? {
+fun ItemStack.getCustomEnchantLevel(enchantment: CustomEnchantData): Int? {
     val data = this.itemMeta?.persistentDataContainer ?: return null
     return data.getOrDefault(enchantment.key, PersistentDataType.INTEGER, 0)
 }
@@ -59,7 +75,7 @@ fun ItemStack.getCustomEnchantLevel(enchantment: CustomEnchantment): Int? {
  * @param enchantment The custom enchantment to set the level of.
  * @param level The level to set the enchantment to.
  */
-fun ItemStack.setCustomEnchantLevel(enchantment: CustomEnchantment, level: Int) {
+fun ItemStack.setCustomEnchantLevel(enchantment: CustomEnchantData, level: Int) {
     editMeta {
         val data = it.persistentDataContainer
         data.set(enchantment.key, PersistentDataType.INTEGER, level)

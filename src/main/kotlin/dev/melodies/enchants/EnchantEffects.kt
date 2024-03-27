@@ -7,17 +7,19 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityChangeBlockEvent
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import java.util.*
 
-class PickaxeEnchantListener : Listener {
+class EnchantEffects : Listener {
 
     private val meteors = mutableSetOf<UUID>()
 
     @EventHandler
     fun fortuneEffect(event: BlockBreakEvent) {
         val item = event.player.inventory.itemInMainHand
-        val level = item.getCustomEnchantLevel(CustomEnchantments.FORTUNE) ?: return
-        val chance = level * CustomEnchantments.FORTUNE.procPerLevel
+        val level = item.getCustomEnchantLevel(CustomEnchantsData.FORTUNE) ?: return
+        val chance = level * CustomEnchantsData.FORTUNE.procPerLevel
 
         // TODO: Move proc chance to a function
         if (Math.random() > chance) return
@@ -32,8 +34,8 @@ class PickaxeEnchantListener : Listener {
     @EventHandler
     fun explosiveEffect(event: BlockBreakEvent) {
         val item = event.player.inventory.itemInMainHand
-        val level = item.getCustomEnchantLevel(CustomEnchantments.EXPLOSIVE) ?: return
-        val chance = level * CustomEnchantments.EXPLOSIVE.procPerLevel
+        val level = item.getCustomEnchantLevel(CustomEnchantsData.EXPLOSIVE) ?: return
+        val chance = level * CustomEnchantsData.EXPLOSIVE.procPerLevel
 
         // TODO: Move proc chance to a function
         if (Math.random() > chance) return
@@ -45,8 +47,8 @@ class PickaxeEnchantListener : Listener {
     @EventHandler
     fun meteorRainEffectSpawn(event: BlockBreakEvent) {
         val item = event.player.inventory.itemInMainHand
-        val level = item.getCustomEnchantLevel(CustomEnchantments.METEOR) ?: return
-        val chance = level * CustomEnchantments.METEOR.procPerLevel
+        val level = item.getCustomEnchantLevel(CustomEnchantsData.METEOR) ?: return
+        val chance = level * CustomEnchantsData.METEOR.procPerLevel
         if (Math.random() > chance) return
 
         for (i in 0..level) {
@@ -76,5 +78,38 @@ class PickaxeEnchantListener : Listener {
         event.isCancelled = true
 
         entity.world.createExplosion(entity.location, 2.0f, false)
+    }
+
+    @EventHandler
+    fun flowStateEffect(event: BlockBreakEvent) {
+        val item = event.player.inventory.itemInMainHand
+        val level = item.getCustomEnchantLevel(CustomEnchantsData.FLOW) ?: return
+        val chance = level * CustomEnchantsData.FLOW.procPerLevel
+
+        if (Math.random() > chance) return
+
+        event.player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 20 * 5, 1))
+        event.player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 5, 5))
+    }
+
+    @EventHandler
+    fun lightningStormEffectSpawn(event: BlockBreakEvent) {
+        val item = event.player.inventory.itemInMainHand
+        val level = item.getCustomEnchantLevel(CustomEnchantsData.LIGHTNING) ?: return
+        val chance = level * CustomEnchantsData.LIGHTNING.procPerLevel
+
+        if (Math.random() > chance) return
+
+        for (i in 0..level) {
+            val random = java.util.Random()
+            val xOffset = random.nextInt(20) - 10
+            val zOffset = random.nextInt(20) - 10
+            val location = event.block.location.add(xOffset.toDouble(), 0.0, zOffset.toDouble())
+
+            location.world.strikeLightning(location)
+            location.world.createExplosion(location, 2.0f, false)
+        }
+
+        event.player.sendMessage("<green>Lightning Storm Triggered!</green>".toMiniMessage())
     }
 }

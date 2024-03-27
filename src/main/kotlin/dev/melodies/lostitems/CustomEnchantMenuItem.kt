@@ -1,18 +1,15 @@
 package dev.melodies.lostitems
 
-import dev.melodies.enchants.CustomEnchantment
+import dev.melodies.enchants.CustomEnchantData
 import dev.melodies.enchants.getCustomEnchantLevel
 import dev.melodies.enchants.setCustomEnchantLevel
 import dev.melodies.utils.toMiniMessage
 import dev.melodies.utils.wrapped
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
-import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper
 import xyz.xenondevs.invui.item.ItemProvider
 import xyz.xenondevs.invui.item.builder.ItemBuilder
 import xyz.xenondevs.invui.item.impl.AbstractItem
@@ -21,7 +18,7 @@ import kotlin.math.roundToInt
 
 
 class CustomEnchantMenuItem(
-    private val enchantment: CustomEnchantment,
+    private val enchantment: CustomEnchantData,
     private val pickaxe: ItemStack
 ) : AbstractItem() {
 

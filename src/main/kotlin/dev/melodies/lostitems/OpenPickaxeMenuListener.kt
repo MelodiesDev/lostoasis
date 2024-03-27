@@ -1,6 +1,6 @@
 package dev.melodies.lostitems
 
-import dev.melodies.enchants.CustomEnchantments
+import dev.melodies.enchants.CustomEnchantsData
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -20,14 +20,16 @@ class OpenPickaxeMenuListener : Listener {
 
         val gui = Gui.normal() // Creates the GuiBuilder for a normal GUI
             .setStructure(
-                ". . . # & * . . .",
+                ". . ^ # & * ( . .",
                 ". . . . . . . . .",
                 ". . . . . . . . .",
                 ". . . . . . . . ."
             )
-            .addIngredient('#', CustomEnchantMenuItem(CustomEnchantments.FORTUNE, item))
-            .addIngredient('&', CustomEnchantMenuItem(CustomEnchantments.EXPLOSIVE, item))
-            .addIngredient('*', CustomEnchantMenuItem(CustomEnchantments.METEOR, item))
+            .addIngredient('#', CustomEnchantMenuItem(CustomEnchantsData.FORTUNE, item))
+            .addIngredient('&', CustomEnchantMenuItem(CustomEnchantsData.EXPLOSIVE, item))
+            .addIngredient('*', CustomEnchantMenuItem(CustomEnchantsData.METEOR, item))
+            .addIngredient('(', CustomEnchantMenuItem(CustomEnchantsData.FLOW, item))
+            .addIngredient('^', CustomEnchantMenuItem(CustomEnchantsData.LIGHTNING, item))
             .build()
 
 
