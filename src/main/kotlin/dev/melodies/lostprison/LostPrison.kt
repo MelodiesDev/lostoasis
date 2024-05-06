@@ -1,6 +1,7 @@
 package dev.melodies.lostprison
 
 import dev.melodies.commands.OpenInfoBookCommand
+import dev.melodies.commands.ServerCommands
 import dev.melodies.enchants.EnchantEffects
 import dev.melodies.enchants.PickaxeBreakEvents
 import dev.melodies.lostitems.OpenPickaxeMenuListener
@@ -19,5 +20,8 @@ class LostPrison : JavaPlugin(){
         Bukkit.getPluginManager().registerEvents(EnchantEffects(), this)
         Bukkit.getPluginManager().registerEvents(PlayerJoinMOTD(), this)
         this.getCommand("info")?.setExecutor(OpenInfoBookCommand())
+        this.getCommand("hub")?.setExecutor(ServerCommands(this))
+
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord")
     }
 }
