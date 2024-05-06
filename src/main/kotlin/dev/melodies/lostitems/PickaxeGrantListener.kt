@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper
 import xyz.xenondevs.invui.item.builder.ItemBuilder
 
 class PickaxeGrantListener : Listener {
