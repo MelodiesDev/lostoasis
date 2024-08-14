@@ -2,9 +2,7 @@ package dev.melodies.player
 
 import dev.melodies.lostprison.LostPrison
 import dev.melodies.utils.toMiniMessage
-import net.kyori.adventure.text.format.TextColor
 import org.bukkit.entity.Player
-import kotlin.math.roundToInt
 
 class ActionBarManager(private val plugin: LostPrison) {
 

@@ -7,4 +7,3 @@ import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper
 fun String.toMiniMessage() = MiniMessage.miniMessage().deserialize(this)
 
 fun Component.wrapped() = AdventureComponentWrapper(this)
-fun String.toUIComponent() = toMiniMessage().wrapped()

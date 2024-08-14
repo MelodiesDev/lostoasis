@@ -52,7 +52,7 @@ class EnchantEffects : Listener {
         if (Math.random() > chance) return
 
         for (i in 0..level) {
-            val random = java.util.Random()
+            val random = Random()
             val xOffset = random.nextInt(10) - 5
             val zOffset = random.nextInt(10) - 5
             val location = event.block.location.add(xOffset.toDouble(), 10.0, zOffset.toDouble())
@@ -101,7 +101,7 @@ class EnchantEffects : Listener {
         if (Math.random() > chance) return
 
         for (i in 0..level) {
-            val random = java.util.Random()
+            val random = Random()
             val xOffset = random.nextInt(20) - 10
             val zOffset = random.nextInt(20) - 10
             val location = event.block.location.add(xOffset.toDouble(), 0.0, zOffset.toDouble())
