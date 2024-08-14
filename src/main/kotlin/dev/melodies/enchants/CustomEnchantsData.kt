@@ -1,5 +1,6 @@
 package dev.melodies.enchants
 
+import dev.melodies.utils.EnchantProcChances
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack

@@ -44,12 +44,14 @@ class CustomEnchantMenuItem(
         return ItemBuilder(enchantment.material)
             .setDisplayName(enchantment.name.toMiniMessage().wrapped())
             .addLoreLines(
-                "".toMiniMessage().wrapped(),
-                enchantment.description.toMiniMessage().wrapped(),
-                "".toMiniMessage().wrapped(),
-                "<gray>Left Click <green>+1</green> Right Click <red>-1</red></gray>".toMiniMessage().wrapped(),
-                "".toMiniMessage().wrapped(),
-                "<blue>Current proc chance:</blue> <green>${(level * enchantment.procPerLevel * 100).roundToInt()}%</green>".toMiniMessage().wrapped(),
+                listOf(
+                    "",
+                    enchantment.description,
+                    "",
+                    "<gray>Left Click <green>+1</green> Right Click <red>-1</red></gray>",
+                    "",
+                    "<blue>Current proc chance:</blue> <green>${(level * enchantment.procPerLevel * 100).roundToInt()}%</green>"
+                ).map { it.toMiniMessage().wrapped() }
             )
             .setAmount(max(level, 1))
     }

@@ -13,4 +13,8 @@ object PlayerServerUtils {
 
         player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray())
     }
+
+    fun transferToLobby(plugin: Plugin, sender: Player) {
+        transfer(plugin, sender, "lobby")
+    }
 }

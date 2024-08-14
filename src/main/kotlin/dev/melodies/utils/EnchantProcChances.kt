@@ -1,4 +1,4 @@
-package dev.melodies.enchants
+package dev.melodies.utils
 
 object EnchantProcChances {
     const val fortuneProcPerLevel = 0.1

@@ -42,7 +42,7 @@ class PickaxeBreakEvents : Listener {
         }
 
         // Increment the number of blocks broken
-        val newBlocksBroken = bossBarEntry.blocksBroken + 1
+        val newBlocksBroken = (bossBarEntry.blocksBroken + 1).coerceAtMost(requiredBlocks)
 
         // Calculate the new progress from 0 to 1.
         // Adventure is AWESOME and, when any attribute of the boss bar is updated,

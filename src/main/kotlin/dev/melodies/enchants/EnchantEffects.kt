@@ -89,7 +89,7 @@ class EnchantEffects : Listener {
         if (Math.random() > chance) return
 
         event.player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 20 * 5, 1))
-        event.player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 5, 5))
+        event.player.addPotionEffect(PotionEffect(PotionEffectType.HASTE, 20 * 5, 5))
     }
 
     @EventHandler

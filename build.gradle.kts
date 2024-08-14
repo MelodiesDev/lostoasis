@@ -30,8 +30,12 @@ repositories {
 dependencies {
     "paperweightDevelopmentBundle"(libs.paper.devbundle)
 
-    api("xyz.xenondevs.invui:invui:1.25")
-    api("xyz.xenondevs.invui:invui-kotlin:1.25")
+    api("xyz.xenondevs.invui:invui:1.35")
+    api("xyz.xenondevs.invui:invui-kotlin:1.35")
+
+    api("org.incendo:cloud-paper:2.0.0-beta.9")
+    api("org.incendo:cloud-kotlin-coroutines-annotations:2.0.0-rc.2")
+    api("org.incendo:cloud-annotations:2.0.0-rc.2")
 }
 
 configure<BukkitPluginDescription> {
@@ -54,7 +58,7 @@ configure<BukkitPluginDescription> {
 }
 
 configure<KotlinJvmProjectExtension> {
-    jvmToolchain(17)
+    jvmToolchain(21)
     compilerOptions {
         // Store Java 8 parameter names
         javaParameters.set(true)
