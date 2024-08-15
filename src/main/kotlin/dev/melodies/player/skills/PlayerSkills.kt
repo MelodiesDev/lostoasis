@@ -1,7 +1,9 @@
-package dev.melodies.player
+package dev.melodies.player.skills
 
 import dev.melodies.lostitems.PickaxeGrantListener
 import dev.melodies.lostprison.LostPrison
+import dev.melodies.player.ActionBarManager
+import dev.melodies.utils.TitleDisplayManager
 import org.bukkit.Material
 import org.bukkit.Tag
 import org.bukkit.event.EventHandler
@@ -26,7 +28,7 @@ class PlayerSkills(private val plugin: LostPrison) : Listener {
         if (event.player.inventory.itemInMainHand.itemMeta?.persistentDataContainer?.has(PickaxeGrantListener.KEY) == false) return
 
         val xp = blocks[event.block.type] ?: 1.0
-        val data = plugin.playerSkillDataStorage.getMiningLevelXP(event.player.uniqueId)
+        val data = plugin.playerSkillDataStorage.getSkillData(event.player.uniqueId, SkillType.MINING)
 
         var newXP = data.xp + xp
         var newLevel = data.level
@@ -35,9 +37,11 @@ class PlayerSkills(private val plugin: LostPrison) : Listener {
         if (newXP >= xpToLevelUp) {
             newLevel++
             newXP -= xpToLevelUp
+
+            TitleDisplayManager.handleLevelUp(event.player, data.level, newLevel)
         }
 
-        plugin.playerSkillDataStorage.setPlayerStats(event.player.uniqueId, newLevel, newXP)
-        actionBarManager.displayMiningBar(event.player, newXP, xpToLevelUp, xp)
+        plugin.playerSkillDataStorage.setPlayerStats(event.player.uniqueId, SkillType.MINING, newLevel, newXP)
+        actionBarManager.displaySkillBar(event.player, newXP, xpToLevelUp, xp)
     }
 }

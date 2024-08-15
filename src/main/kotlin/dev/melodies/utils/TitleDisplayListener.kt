@@ -1,13 +1,15 @@
-package dev.melodies.player
+package dev.melodies.utils
 
-import dev.melodies.utils.toMiniMessage
+import dev.melodies.lostprison.LostPrison
+import dev.melodies.utils.TitleDisplayManager.joinSubtitle
+import dev.melodies.utils.TitleDisplayManager.joinTitle
 import net.kyori.adventure.title.Title
 import net.kyori.adventure.util.Ticks
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
-class TitleDisplayListener : Listener {
+class TitleDisplayListener(private val plugin: LostPrison) : Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player
@@ -22,13 +24,5 @@ class TitleDisplayListener : Listener {
                 )
             )
         )
-    }
-
-    companion object {
-        val joinTitle = "Welcome to Lost Prison!".toMiniMessage()
-        val joinSubtitle = "<gradient:aqua:dark_purple>hi :3</gradient>".toMiniMessage()
-
-        val mineTitle = "Mining".toMiniMessage()
-        val mineSubtitle = "Mining is fun!".toMiniMessage()
     }
 }
