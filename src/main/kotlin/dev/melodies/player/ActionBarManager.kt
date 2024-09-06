@@ -1,12 +1,12 @@
 package dev.melodies.player
 
-import dev.melodies.lostprison.LostPrison
+import dev.melodies.lostoasis.LostOasis
 import dev.melodies.player.skills.SkillType
 import dev.melodies.utils.ProgressBarBuilder
-import dev.melodies.utils.toMiniMessage
+import dev.melodies.core.utils.toMiniMessage
 import org.bukkit.entity.Player
 
-class ActionBarManager(private val plugin: LostPrison) {
+class ActionBarManager(private val plugin: LostOasis) {
 
     fun displaySkillBar(player: Player, currentXP: Double, requiredXP: Double, xp: Double) {
         val data = plugin.playerSkillDataStorage.getSkillData(player.uniqueId, SkillType.MINING)

@@ -30,31 +30,24 @@ repositories {
 dependencies {
     "paperweightDevelopmentBundle"(libs.paper.devbundle)
 
-    api("xyz.xenondevs.invui:invui:1.35")
-    api("xyz.xenondevs.invui:invui-kotlin:1.35")
+    api("xyz.xenondevs.invui:invui:1.32")
+    api("xyz.xenondevs.invui:invui-kotlin:1.32")
 
     api("org.incendo:cloud-paper:2.0.0-beta.9")
     api("org.incendo:cloud-kotlin-coroutines-annotations:2.0.0-rc.2")
     api("org.incendo:cloud-annotations:2.0.0-rc.2")
+
+    api("com.github.MilkBowl:VaultAPI:1.7") {
+        exclude(group = "org.bukkit")
+    }
 }
 
 configure<BukkitPluginDescription> {
-    name = "lostprison"
-    main = "dev.melodies.lostprison.LostPrison"
+    name = "LostOasis"
+    main = "dev.melodies.lostoasis.LostOasis"
 
     authors = listOf("Melody <3")
-    apiVersion = "1.20"
-
-    commands {
-        create("info") {
-            description = "Opens the info book"
-            permission = "lostprison.info"
-        }
-        create("hub") {
-            description = "Teleports you to the hub"
-            permission = "losthub.server"
-        }
-    }
+    apiVersion = "1.21"
 }
 
 configure<KotlinJvmProjectExtension> {

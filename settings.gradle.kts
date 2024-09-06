@@ -1,4 +1,4 @@
-rootProject.name = "lost-prison"
+rootProject.name = "lost-oasis"
 
 pluginManagement {
     repositories {

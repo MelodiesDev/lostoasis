@@ -1,8 +1,8 @@
 package dev.melodies.player.skills
 
-import dev.melodies.lostprison.LostPrison
+import dev.melodies.lostoasis.LostOasis
 
-class SkillConfig(private val plugin: LostPrison) {
+class SkillConfig(private val plugin: LostOasis) {
 
     /**
      * Returns the required XP for a given level

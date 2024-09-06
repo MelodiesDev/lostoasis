@@ -1,6 +1,7 @@
 package dev.melodies.utils
 
-import dev.melodies.lostprison.LostPrison
+import dev.melodies.core.utils.toMiniMessage
+import dev.melodies.lostoasis.LostOasis
 import dev.melodies.player.skills.SkillType
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -8,7 +9,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
 object InventoryContents {
-    fun miningMenuContents(plugin: LostPrison, player: Player): List<ItemStack> {
+    fun miningMenuContents(plugin: LostOasis, player: Player): List<ItemStack> {
         val miningData = plugin.playerSkillDataStorage.getSkillData(player.uniqueId, SkillType.MINING)
         val neededXP = plugin.skillConfig.getRequiredXP(miningData.level)
         val progress = plugin.skillConfig.getProgress(miningData.level, miningData.xp)

@@ -1,6 +1,7 @@
 package dev.melodies.utils
 
-import dev.melodies.lostprison.LostPrison
+import dev.melodies.core.utils.toMiniMessage
+import dev.melodies.lostoasis.LostOasis
 import dev.melodies.player.skills.SkillType
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -9,12 +10,12 @@ import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
-object InventoryManger {
+object InventoryManager {
     val skillMenuTitle = "Skills".toMiniMessage()
     val miningMenuTitle = "Mining".toMiniMessage()
     val forestryMenuTitle = "Forestry".toMiniMessage()
 
-    fun openSkillMenu(player: Player, plugin: LostPrison) {
+    fun openSkillMenu(player: Player, plugin: LostOasis) {
         val inventory = Bukkit.createInventory(null, InventoryType.CHEST, skillMenuTitle)
 
         val miningData = plugin.playerSkillDataStorage.getSkillData(player.uniqueId, SkillType.MINING)
@@ -53,7 +54,7 @@ object InventoryManger {
         player.openInventory(inventory)
     }
 
-    fun openMiningMenu(player: Player, plugin: LostPrison) {
+    fun openMiningMenu(player: Player, plugin: LostOasis) {
         val inventory = Bukkit.createInventory(null, InventoryType.CHEST, miningMenuTitle)
         val items = InventoryContents.miningMenuContents(plugin, player)
 

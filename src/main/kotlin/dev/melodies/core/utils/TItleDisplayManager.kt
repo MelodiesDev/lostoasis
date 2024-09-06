@@ -1,6 +1,7 @@
-package dev.melodies.utils
+package dev.melodies.core.utils
 
 import net.kyori.adventure.title.Title
+import org.bukkit.Color
 import org.bukkit.FireworkEffect
 import org.bukkit.entity.Firework
 import org.bukkit.entity.Player
@@ -27,7 +28,7 @@ object TitleDisplayManager {
                 meta.addEffect(
                     FireworkEffect.builder()
                         .with(FireworkEffect.Type.BALL_LARGE)
-                        .withColor(org.bukkit.Color.BLUE, org.bukkit.Color.RED, org.bukkit.Color.YELLOW)
+                        .withColor(Color.BLUE, Color.RED, Color.YELLOW)
                         .flicker(true)
                         .trail(true)
                         .build()

@@ -1,16 +1,12 @@
-package dev.melodies.lostprison
+package dev.melodies.lostoasis
 
-import dev.melodies.commands.admin.AdminCommands
-import dev.melodies.commands.player.PlayerCommands
-import dev.melodies.enchants.EnchantEffects
-import dev.melodies.lostitems.OpenPickaxeMenuListener
-import dev.melodies.lostitems.PickaxeGrantListener
+import dev.melodies.core.utils.ScoreboardManager
+import dev.melodies.core.utils.TitleDisplayListener
+import dev.melodies.core.utils.commands.SkillCommands
 import dev.melodies.player.skills.PlayerSkillDataStorage
 import dev.melodies.player.skills.PlayerSkills
-import dev.melodies.player.skills.SkillMenuListener
-import dev.melodies.utils.TitleDisplayListener
 import dev.melodies.player.skills.SkillConfig
-import dev.melodies.utils.ScoreboardManager
+import dev.melodies.player.skills.SkillMenuListener
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.configuration.file.YamlConfiguration
@@ -22,7 +18,7 @@ import org.incendo.cloud.paper.LegacyPaperCommandManager
 import java.io.File
 
 @Suppress("unused")
-class LostPrison : JavaPlugin() {
+class LostOasis : JavaPlugin() {
 
     lateinit var dataConfig: YamlConfiguration
     lateinit var dataFile: File
@@ -46,16 +42,12 @@ class LostPrison : JavaPlugin() {
 
         Bukkit.getPluginManager().registerEvents(playerSkillDataStorage, this)
 
-        Bukkit.getPluginManager().registerEvents(PickaxeGrantListener(), this)
-        Bukkit.getPluginManager().registerEvents(OpenPickaxeMenuListener(), this)
-        Bukkit.getPluginManager().registerEvents(EnchantEffects(), this)
-
         Bukkit.getPluginManager().registerEvents(PlayerSkills(this), this)
 
         Bukkit.getPluginManager().registerEvents(TitleDisplayListener(this), this)
         Bukkit.getPluginManager().registerEvents(ScoreboardManager(), this)
 
-        Bukkit.getPluginManager().registerEvents(SkillMenuListener(this), this)
+        Bukkit.getPluginManager().registerEvents(SkillMenuListener(), this)
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord")
 
@@ -70,7 +62,8 @@ class LostPrison : JavaPlugin() {
         }
 
         val annotationParser = AnnotationParser(commandManager, CommandSender::class.java)
-        annotationParser.parse(this, PlayerCommands(this), AdminCommands(this))
+        annotationParser.parse(this, SkillCommands(this))
+
 
         logger.info("LostPrison has been enabled!")
     }

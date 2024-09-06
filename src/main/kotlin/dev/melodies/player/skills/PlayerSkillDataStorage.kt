@@ -1,12 +1,12 @@
 package dev.melodies.player.skills
 
-import dev.melodies.lostprison.LostPrison
+import dev.melodies.lostoasis.LostOasis
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 
-class PlayerSkillDataStorage(private val plugin: LostPrison) : Listener {
+class PlayerSkillDataStorage(private val plugin: LostOasis) : Listener {
     private val cache = mutableMapOf<UUID, PlayerSkillsData>()
 
     fun getSkillData(playerID: UUID, type: SkillType): PlayerSkillData = cache.getOrPut(playerID) {

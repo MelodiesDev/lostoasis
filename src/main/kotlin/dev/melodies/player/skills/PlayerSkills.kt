@@ -1,16 +1,16 @@
 package dev.melodies.player.skills
 
-import dev.melodies.lostitems.PickaxeGrantListener
-import dev.melodies.lostprison.LostPrison
+import dev.melodies.core.utils.TitleDisplayManager
+import dev.melodies.lostoasis.LostOasis
 import dev.melodies.player.ActionBarManager
-import dev.melodies.utils.TitleDisplayManager
 import org.bukkit.Material
 import org.bukkit.Tag
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.inventory.ItemStack
 
-class PlayerSkills(private val plugin: LostPrison) : Listener {
+class PlayerSkills(private val plugin: LostOasis) : Listener {
 
     private val blocks: Map<Material, Double> = plugin.config.getConfigurationSection("block-xp")?.let { section ->
         section.getKeys(false).mapNotNull { key ->
@@ -20,14 +20,22 @@ class PlayerSkills(private val plugin: LostPrison) : Listener {
         }.toMap()
     } ?: emptyMap()
 
+    private val pickaxes: Map<Material, Double> = plugin.config.getConfigurationSection("pickaxe-multiplier")?.let { section ->
+        section.getKeys(false).mapNotNull { key ->
+            val item = Material.getMaterial(key) ?: return@mapNotNull null
+            val multiplier = section.getDouble(key)
+            item to multiplier
+        }.toMap()
+    } ?: emptyMap()
+
     private val actionBarManager = ActionBarManager(plugin)
 
     @EventHandler
     private fun miningSkill(event: BlockBreakEvent) {
+        val pickaxeMultiplier = pickaxes[event.player.inventory.itemInMainHand.type] ?: return
         if (!Tag.MINEABLE_PICKAXE.isTagged(event.block.type)) return
-        if (event.player.inventory.itemInMainHand.itemMeta?.persistentDataContainer?.has(PickaxeGrantListener.KEY) == false) return
 
-        val xp = blocks[event.block.type] ?: 1.0
+        val xp = (blocks[event.block.type] ?: 1.0) * pickaxeMultiplier
         val data = plugin.playerSkillDataStorage.getSkillData(event.player.uniqueId, SkillType.MINING)
 
         var newXP = data.xp + xp
